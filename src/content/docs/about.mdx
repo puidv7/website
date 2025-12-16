@@ -1,0 +1,28 @@
+---
+title: About
+description: How puidv7 conversion works, further reading, and credits
+---
+
+## How conversion from UUIDv7 to puidv7 works
+
+1. Remove dashes from UUIDv7 to get hex string
+2. Convert hex to Crockford Base32
+3. Lowercase and prepend the 3-character prefix
+
+<div class="not-content text-xs font-mono bg-gray-100 dark:bg-gray-800 p-4 rounded-lg my-4 overflow-x-auto">
+  <div class="mb-1"><span class="text-gray-500">1. UUIDv7:</span> 01970a1c-e31e-7422-9cd5-e9651d11cc97</div>
+  <div class="mb-1"><span class="text-gray-500">2. Hex:</span> 01970a1ce31e74229cd5e9651d11cc97</div>
+  <div class="mb-1"><span class="text-gray-500">3. Base32:</span> 06BGM7733ST2576NX5JHT4ECJW</div>
+  <div><span class="text-gray-500">4. puidv7:</span> <span class="text-green-600 dark:text-green-400">acc</span>06bgm7733st2576nx5jht4ecjw</div>
+</div>
+
+## Inspiration & further reading
+
+- <a href="https://dev.to/stripe/designing-apis-for-humans-object-ids-3o5a" target="_blank">Stripe: Designing APIs for humans - Object IDs</a>
+- <a href="https://buildkite.com/resources/blog/goodbye-integers-hello-uuids/" target="_blank">Buildkite: Goodbye integers. Hello UUIDv7!</a>
+- <a href="https://www.crockford.com/base32.html" target="_blank">Douglas Crockford Base32</a>
+- <a href="https://datatracker.ietf.org/doc/html/rfc9562" target="_blank">RFC 9562 - UUIDs</a>
+
+## Credit
+
+Thank you to <a href="https://nadrama.com" target="_blank">Nadrama.com</a> for sponsoring this project!

@@ -1,0 +1,146 @@
+---
+---
+
+<div class="not-content space-y-8">
+  <!-- UUIDv7 to puidv7 -->
+  <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+    <h2 class="text-lg font-semibold mb-4">UUIDv7 → puidv7</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+      Enter a prefix and UUIDv7 to convert:
+    </p>
+    <div class="flex flex-col sm:flex-row gap-2 mb-4">
+      <input
+        type="text"
+        id="prefix"
+        value="acc"
+        maxlength="3"
+        class="w-16 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-center font-mono bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+        value="acc"
+      />
+      <input
+        type="text"
+        id="uuid-input"
+        class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md font-mono bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+        value="019b25d5-1d83-75f4-8959-d5a8dd864f99"
+      />
+    </div>
+    <button
+      id="convert-to-puidv7"
+      class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+    >
+      Convert to puidv7
+    </button>
+    <div id="puidv7-result" class="mt-4 hidden">
+      <span class="text-gray-500 text-sm">puidv7 = </span>
+      <span id="puidv7-output" class="font-mono text-green-600 dark:text-green-400 break-all"></span>
+    </div>
+    <div id="uuid-error" class="mt-4 hidden text-red-600 dark:text-red-400 text-sm"></div>
+  </div>
+
+  <!-- puidv7 to UUIDv7 -->
+  <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+    <h2 class="text-lg font-semibold mb-4">puidv7 → UUIDv7</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+      Enter a puidv7 to convert back to UUIDv7:
+    </p>
+    <input
+      type="text"
+      id="puidv7-input"
+      class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md font-mono mb-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+      value="acc06djbn8xgdtz92astpmdv1jfk4"
+    />
+    <button
+      id="convert-to-uuid"
+      class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+    >
+      Convert to UUIDv7
+    </button>
+    <div id="uuid-result" class="mt-4 hidden">
+      <span class="text-gray-500 text-sm">UUIDv7 = </span>
+      <span id="uuid-output" class="font-mono break-all"></span>
+    </div>
+    <div id="puidv7-error" class="mt-4 hidden text-red-600 dark:text-red-400 text-sm"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { encodeId, decodeId } from 'https://esm.sh/puidv7@latest';
+
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  // UUIDv7 to puidv7
+  const uuidInput = document.getElementById('uuid-input');
+  const prefixInput = document.getElementById('prefix');
+  const convertToPuidv7Btn = document.getElementById('convert-to-puidv7');
+  const puidv7Result = document.getElementById('puidv7-result');
+  const puidv7Output = document.getElementById('puidv7-output');
+  const uuidError = document.getElementById('uuid-error');
+
+  convertToPuidv7Btn?.addEventListener('click', () => {
+    const uuid = uuidInput?.value.trim();
+    const prefix = prefixInput?.value.trim().toLowerCase();
+
+    uuidError.classList.add('hidden');
+    puidv7Result.classList.add('hidden');
+
+    if (!prefix || !/^[a-z]{3}$/.test(prefix)) {
+      uuidError.textContent = 'Prefix must be exactly 3 lowercase letters';
+      uuidError.classList.remove('hidden');
+      return;
+    }
+
+    if (!uuid || !uuidRegex.test(uuid)) {
+      uuidError.textContent = 'Invalid UUIDv7 format';
+      uuidError.classList.remove('hidden');
+      return;
+    }
+
+    try {
+      const result = encodeId(uuid, prefix);
+      puidv7Output.textContent = result;
+      puidv7Result.classList.remove('hidden');
+    } catch (e) {
+      uuidError.textContent = 'Error encoding: ' + e.message;
+      uuidError.classList.remove('hidden');
+    }
+  });
+
+  // puidv7 to UUIDv7
+  const puidv7Input = document.getElementById('puidv7-input');
+  const convertToUuidBtn = document.getElementById('convert-to-uuid');
+  const uuidResult = document.getElementById('uuid-result');
+  const uuidOutput = document.getElementById('uuid-output');
+  const puidv7Error = document.getElementById('puidv7-error');
+
+  convertToUuidBtn?.addEventListener('click', () => {
+    const puidv7 = puidv7Input?.value.trim().toLowerCase();
+
+    puidv7Error.classList.add('hidden');
+    uuidResult.classList.add('hidden');
+
+    if (!puidv7 || puidv7.length !== 29) {
+      puidv7Error.textContent = 'puidv7 must be exactly 29 characters (3 char prefix + 26 char encoded UUID)';
+      puidv7Error.classList.remove('hidden');
+      return;
+    }
+
+    const prefix = puidv7.substring(0, 3);
+    if (!/^[a-z]{3}$/.test(prefix)) {
+      puidv7Error.textContent = 'Invalid prefix (must be 3 lowercase letters)';
+      puidv7Error.classList.remove('hidden');
+      return;
+    }
+
+    try {
+      const result = decodeId(puidv7, prefix);
+      if (!uuidRegex.test(result)) {
+        throw new Error('Decoded value is not a valid UUID');
+      }
+      uuidOutput.textContent = result;
+      uuidResult.classList.remove('hidden');
+    } catch (e) {
+      puidv7Error.textContent = 'Error decoding: ' + e.message;
+      puidv7Error.classList.remove('hidden');
+    }
+  });
+</script>

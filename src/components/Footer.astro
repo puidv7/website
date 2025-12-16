@@ -1,0 +1,32 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<footer class="site-footer not-content">
+  <p>
+    puidv7 made with <span class="heart">♥</span> by <a href="https://nadrama.com" target="_blank">Nadrama.com</a>
+  </p>
+</footer>
+
+<style>
+  .site-footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-3);
+    border-top: 1px solid var(--sl-color-gray-5);
+  }
+  .site-footer a {
+    color: var(--sl-color-white);
+    text-decoration: underline;
+  }
+  .site-footer a:hover {
+    color: var(--sl-color-accent);
+  }
+  .heart {
+    color: #a855f7;
+  }
+</style>

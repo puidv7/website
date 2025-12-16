@@ -1,0 +1,51 @@
+---
+title: Libraries
+description: puidv7 libraries for JavaScript and Go
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard
+    title="JavaScript / TypeScript"
+    href="https://github.com/puidv7/puidv7-js"
+    description="npm install puidv7"
+    target="_blank"
+  />
+  <LinkCard
+    title="Go"
+    href="https://github.com/puidv7/puidv7-go"
+    description="go get github.com/puidv7/puidv7-go"
+    target="_blank"
+  />
+</CardGrid>
+
+## JavaScript
+
+```bash
+npm install puidv7
+```
+
+```js
+import { generateId, encodeId, decodeId } from 'puidv7';
+
+// Generate a new puidv7
+const id = generateId('acc');
+// => acc06bgm7733st2576nx5jht4ecjw
+
+// Convert existing UUIDv7 to puidv7
+const puidv7 = encodeId('01970a1c-e31e-7422-9cd5-e9651d11cc97', 'acc');
+
+// Convert puidv7 back to UUIDv7
+const uuid = decodeId('acc06bgm7733st2576nx5jht4ecjw', 'acc');
+```
+
+<a href="https://github.com/puidv7/puidv7-js" target="_blank">View on GitHub →</a>
+
+## Go
+
+```bash
+go get github.com/puidv7/puidv7-go
+```
+
+<a href="https://github.com/puidv7/puidv7-go" target="_blank">View on GitHub →</a>
