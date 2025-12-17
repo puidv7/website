@@ -3,6 +3,19 @@ title: About
 description: How puidv7 conversion works, further reading, and credits
 ---
 
+## The core idea
+
+**Store UUIDv7 in your database, show puidv7 to your users.**
+
+puidv7 is a display/communication format, not a storage format. Your database continues to use standard UUIDv7 columns, which means:
+- Full compatibility with existing UUID tooling and ORMs
+- Efficient B-tree indexing on time-ordered UUIDs
+- No migration needed for existing UUIDv7 data
+
+Convert to puidv7 at the API boundary when sending IDs to users, and convert back to UUIDv7 when receiving them.
+
+The puidv7 project offers libaries/tooling which helps make automatic conversion easier.
+
 ## How conversion from UUIDv7 to puidv7 works
 
 1. Remove dashes from UUIDv7 to get hex string

@@ -6,7 +6,7 @@ next:
   link: /about/
   label: About
 hero:
-  tagline: Human-friendly, URL-safe, time-ordered unique identifiers
+  tagline: URL-safe typed IDs for humans, time-ordered UUIDv7's for databases
   actions:
     - text: Try the Converter
       link: /converter/
@@ -36,6 +36,10 @@ A **puidv7** is a Prefixed UUIDv7 which:
 3. Contains **no hyphens**
 4. Has a **3-character alphabetic prefix** (a-z)
 
+UUIDv7 is great for databases and distributed systems, but not as great for humans.
+
+The idea of puidv7 is to **store UUIDv7 in your database and show puidv7 to your users**.
+
 ### Example
 
 <div class="not-content text-sm font-mono bg-gray-100 dark:bg-gray-800 p-4 rounded-lg my-4">
@@ -43,11 +47,13 @@ A **puidv7** is a Prefixed UUIDv7 which:
   <div><span class="text-gray-500">puidv7 =</span> <span class="break-all text-green-600 dark:text-green-400">acc06bgm7733st2576nx5jht4ecjw</span></div>
 </div>
 
+<div class="not-content text-sm bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 p-4 rounded-lg my-4">
+  <strong>Best practice:</strong> Use puidv7 in URLs, APIs, and user interfaces. Convert back to UUIDv7 for database storage to maintain compatibility with existing UUID tooling and indexing.
+</div>
+
 ## Why puidv7?
 
-UUIDv7 is great for databases and distributed systems, but not as great for humans.
-
-<a class="no-underline" href="https://nadrama.com">Nadrama</a> created puidv7 to be:
+<a class="no-underline" href="https://nadrama.com" target="_blank">Nadrama</a> created puidv7 to be:
 
 <CardGrid>
   <Card title="URL-safe" icon="globe">
@@ -66,7 +72,7 @@ UUIDv7 is great for databases and distributed systems, but not as great for huma
     Prefix indicates the entity type (great for support teams)
   </Card>
   <Card title="Time-ordered in DB" icon="list-format">
-    You can still leverage UUIDv7's timestamp-based ordering
+    Leverage UUIDv7's timestamp-based ordering
   </Card>
 </CardGrid>
 

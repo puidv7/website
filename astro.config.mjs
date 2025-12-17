@@ -12,7 +12,7 @@ export default defineConfig({
 			components: {
 				Footer: './src/components/Footer.astro',
 			},
-			description: 'Prefixed UUIDv7 identifiers - human-friendly, URL-safe, time-ordered',
+			description: 'URL-safe typed IDs for humans, time-ordered UUIDv7s for databases',
 			pagefind: false,
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/puidv7' },
