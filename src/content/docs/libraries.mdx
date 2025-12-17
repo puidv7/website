@@ -1,6 +1,6 @@
 ---
 title: Libraries
-description: puidv7 libraries for JavaScript and Go
+description: puidv7 libraries for JavaScript, Go, and OpenTofu/Terraform
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
@@ -16,6 +16,12 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     title="Go"
     href="https://github.com/puidv7/puidv7-go"
     description="go get github.com/puidv7/puidv7-go"
+    target="_blank"
+  />
+  <LinkCard
+    title="OpenTofu / Terraform"
+    href="https://github.com/puidv7/terraform-provider-puidv7"
+    description="puidv7/puidv7 provider"
     target="_blank"
   />
 </CardGrid>
@@ -49,3 +55,28 @@ go get github.com/puidv7/puidv7-go
 ```
 
 <a href="https://github.com/puidv7/puidv7-go" target="_blank">View on GitHub →</a>
+
+## OpenTofu / Terraform
+
+Generate puidv7 identifiers directly in your infrastructure-as-code. Works with OpenTofu and Terraform.
+
+```hcl
+terraform {
+  required_providers {
+    puidv7 = {
+      source = "puidv7/puidv7"
+    }
+  }
+}
+
+resource "puidv7_id" "account" {
+  prefix = "acc"
+}
+
+output "account_id" {
+  value = puidv7_id.account.id
+}
+# => acc06bgm7733st2576nx5jht4ecjw
+```
+
+<a href="https://registry.terraform.io/providers/puidv7/puidv7/latest" target="_blank">View on Terraform Registry →</a> · <a href="https://github.com/puidv7/terraform-provider-puidv7" target="_blank">View on GitHub →</a>
