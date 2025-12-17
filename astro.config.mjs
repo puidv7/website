@@ -2,11 +2,13 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
+import umami from '@yeskunall/astro-umami';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://puidv7.dev',
 	integrations: [
+		umami({ id: 'a6d1ca11-6bae-46d3-8c33-d56dde77e3e0' }),
 		starlight({
 			title: 'puidv7',
 			components: {
